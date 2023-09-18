@@ -38,7 +38,17 @@ public class Gradebook {
 	for(Student s: listOfStudents)
 	    System.out.printf("%s\t%s\t%d\t%d\n", s.getFirstName(), s.getLastName(), s.getPid(), s.getGrade().getScore());
     }
-	Static string calulcateScoretoLetter{
-	//use a if statement to calculate the score to letter
+    public Static string calulcateScoreToLetter(double score){
+	if (score >= 90) {
+            return "A";
+        } else if (score >= 80) {
+            return "B";
+        } else if (score >= 70) {
+            return "C";
+        } else if (score >= 60) {
+            return "D";
+        } else {
+            return "F";
+        }
 	}
 }
