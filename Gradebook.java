@@ -37,5 +37,8 @@ public class Gradebook {
     public void printAllStudents() {
 	for(Student s: listOfStudents)
 	    System.out.printf("%s\t%s\t%d\t%d\n", s.getFirstName(), s.getLastName(), s.getPid(), s.getGrade().getScore());
-    } 
+    }
+	Static string calulcateScoretoLetter{
+	//use a if statement to calculate the score to letter
+	}
 }
