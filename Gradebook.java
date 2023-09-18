@@ -5,13 +5,23 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Gradebook {
-       private ArrayList<Student> listOfStudents;
+    private ArrayList<Student> listOfStudents;
+    
+    public Gradebook(){
+        listOfStudents =  new ArrayList<>();
+    }
+    
+    public void addStudent(Student student) {
+        listOfStudents.add(student);
+    }
+    
     public double calculateAvg() {
 	double sum = 0;
 	for(Student s: listOfStudents)
 	    sum += s.getGrade().getScore();
 	return sum / listOfStudents.size();
     }
+    
     public float calculateMedian() {
 	int i = 0, n = listOfStudents.size();
 	int[] scores = new int[n];
@@ -23,6 +33,7 @@ public class Gradebook {
 	else
 	    return scores[n / 2];
     }
+    
     public void printAllStudents() {
 	for(Student s: listOfStudents)
 	    System.out.printf("%s\t%s\t%d\t%d\n", s.getFirstName(), s.getLastName(), s.getPid(), s.getGrade().getScore());
