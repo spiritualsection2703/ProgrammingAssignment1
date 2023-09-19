@@ -1,5 +1,6 @@
 package main;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,17 +11,39 @@ public class Main {
         System.out.println("\"firstName lastName PID grade\"");
         System.out.println("Please enter 'Done' when you are done.");
     
+        Student student = new Student();
+        
         while (true) {
             String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("Done")) {
-                System.out.println("Please enter a new command.");
-
+            if (input.equalsIgnoreCase("quit")) {
+                System.out.println("Thank you for using our program!");
+                break; 
+            } else if (input.equalsIgnoreCase("done")) {
+                
+                System.out.println("Enter the information for the next student or 'Done' to finish.");
+            } else {
+                
+                String[] parts = input.split(" ");
+                if (parts.length == 4) {
+                    String firstName = parts[0];
+                    String lastName = parts[1];
+                    int pid = Integer.parseInt(parts[2]);
+                    int gradeValue = Integer.parseInt(parts[3]);
+                    
+                    
+                    Grade grade = new Grade(gradeValue);
+                    
+                    
+                   
+                    student.setFirstName(firstName);
+                    student.setLastName(lastName);
+                    student.setPid(pid);
+                    student.setGrade(grade);
+                    System.out.println("Student added: " + student.getFirstName() + " " + student.getLastName());
+                } else {
+                    System.out.println("Invalid input format. Please use: \"firstName lastName PID grade\"");
+                }
             }
-         
-
-        }
-        
-
-
+        }       
     }
 }
