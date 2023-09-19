@@ -1,6 +1,5 @@
 package main;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -34,14 +33,14 @@ public class Main {
                     Grade grade = new Grade(gradeValue);
                     
                     
-                   
                     student.setFirstName(firstName);
                     student.setLastName(lastName);
                     student.setPid(pid);
                     student.setGrade(grade);
                     System.out.println("Student added: " + student.getFirstName() + " " + student.getLastName());
+                    System.out.println("Please add another Student or quit the program.");
                 } else {
-                    System.out.println("Invalid input format. Please use: \"firstName lastName PID grade\"");
+                    System.out.println("Please use: \"firstName lastName PID grade\"");
                 }
             }
         }       
