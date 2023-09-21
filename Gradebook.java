@@ -82,4 +82,99 @@ public char calculateMaxLetterGrade() {
         for (Student s : listOfStudents)
             System.out.printf("%s\t%s\t%d\t%d\n", s.getFirstName(), s.getLastName(), s.getPid(), s.getGrade().getScore());
     }
+    
+    public void findAndPrintLetterGrade(int targetPid) {
+    for (Student s : listOfStudents) {
+        if (s.getPid() == targetPid) {
+            char letterGrade = s.getGrade().getLetterGrade();
+            System.out.println("Letter Grade for PID " + targetPid + ": " + letterGrade);
+            return;
+        }
+    }
+    
+    System.out.println("Student with PID " + targetPid + " not found in the gradebook.");
+}
+    
+    public void findAndPrintFullName(int targetPid) {
+    for (Student s : listOfStudents) {
+        if (s.getPid() == targetPid) {
+            String fullName = s.getFirstName() + " " + s.getLastName();
+            System.out.println("Full Name for PID " + targetPid + ": " + fullName);
+            return; 
+        }
+    }
+    
+    System.out.println("Student with PID " + targetPid + " not found in the gradebook.");
+}
+    
+    public void updateStudentGrade(int targetPid, char newGradeSymbol) {
+    for (Student s : listOfStudents) {
+        if (s.getPid() == targetPid) {
+            s.getGrade().setLetterGrade(newGradeSymbol);
+            System.out.println("Updated grade for PID " + targetPid + " to " + newGradeSymbol);
+            return;
+        }
+    }
+    
+    System.out.println("Student with PID " + targetPid + " not found in the gradebook.");
+}
+
+public char calculateAverageLetterGrade() {
+    if (listOfStudents.isEmpty()) {
+        throw new IllegalStateException("No students in the gradebook.");
+    }
+
+    double averageScore = calculateAvg(); // Calculate the average score first
+
+    // Define your grading scale here
+    // Example: Grading scale for letter grades
+    if (averageScore >= 90.0) {
+        return 'A';
+    } else if (averageScore >= 80.0) {
+        return 'B';
+    } else if (averageScore >= 70.0) {
+        return 'C';
+    } else if (averageScore >= 60.0) {
+        return 'D';
+    } else {
+        return 'F';
+    }
+}    
+    
+public char calculateMedianLetterGrade() {
+    if (listOfStudents.isEmpty()) {
+        throw new IllegalStateException("No students in the gradebook.");
+    }
+
+    float medianScore = calculateMedian(); // Calculate the median score first
+
+    // Define your grading scale here
+    // Example: Grading scale for letter grades
+    if (medianScore >= 90.0f) {
+        return 'A';
+    } else if (medianScore >= 80.0f) {
+        return 'B';
+    } else if (medianScore >= 70.0f) {
+        return 'C';
+    } else if (medianScore >= 60.0f) {
+        return 'D';
+    } else {
+        return 'F';
+    }
+}
+
+public void printStudentTable() {
+    System.out.println("firstname\tlastname\tPID\tscore");
+    for (Student s : listOfStudents) {
+        System.out.printf("%s\t%s\t%d\t%d\n", s.getFirstName(), s.getLastName(), s.getPid(), s.getGrade().getScore());
+    }
+}
+
+public void printStudentTableWithLetterGrades() {
+    System.out.println("firstname\tlastname\tPID\tletter-grades");
+    for (Student s : listOfStudents) {
+        System.out.printf("%s\t%s\t%d\t%c\n", s.getFirstName(), s.getLastName(), s.getPid(), s.getGrade().getLetterGrade());
+    }
+}
+
 }
