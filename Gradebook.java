@@ -15,29 +15,29 @@ public class Gradebook {
         listOfStudents.add(student);
     }
     
-public int calculateMinScore() {
-    if (listOfStudents.isEmpty()) {
-        throw new IllegalStateException("Please add students in the gradebook.");
-    }
-
-    int minScore = listOfStudents.get(0).getGrade().getScore();
-    for (Student s : listOfStudents) {
-        int score = s.getGrade().getScore();
-        if (score < minScore) {
-            minScore = score;
+    public int calculateMinScore() {
+        if (listOfStudents.isEmpty()) {
+            throw new IllegalStateException("Please add students in the gradebook.");
         }
-    }
-    return minScore;
-}
 
-public double calculateAvg() {
+        int minScore = listOfStudents.get(0).getGrade().getScore();
+        for (Student s : listOfStudents) {
+            int score = s.getGrade().getScore();
+            if (score < minScore) {
+                minScore = score;
+            }
+        }
+        return minScore;
+    }
+
+    public double calculateAvg() {
         double sum = 0;
         for (Student s : listOfStudents)
             sum += s.getGrade().getScore();
         return sum / listOfStudents.size();
     }
 
-public float calculateMedian() {
+    public float calculateMedian() {
         int i = 0, n = listOfStudents.size();
         int[] scores = new int[n];
         for (Student s : listOfStudents)
@@ -49,35 +49,36 @@ public float calculateMedian() {
             return scores[n / 2];
     }
 
-public char calculateMinLetterGrade() {
-        if (listOfStudents.isEmpty()) {
-            throw new IllegalStateException("No students in the gradebook.");
-        }
-
-        char minLetterGrade = listOfStudents.get(0).getGrade().getLetterGrade();
-        for (Student s : listOfStudents) {
-            char letterGrade = s.getGrade().getLetterGrade();
-            if (letterGrade < minLetterGrade) {
-                minLetterGrade = letterGrade;
-            }
-        }
-        return minLetterGrade;
-    }
-
-public char calculateMaxLetterGrade() {
+    public String calculateMinLetterGrade() {
     if (listOfStudents.isEmpty()) {
         throw new IllegalStateException("No students in the gradebook.");
     }
 
-    char maxLetterGrade = listOfStudents.get(0).getGrade().getLetterGrade();
+    String minLetterGrade = listOfStudents.get(0).getGrade().getLetterGrade();
     for (Student s : listOfStudents) {
-        char letterGrade = s.getGrade().getLetterGrade();
-        if (letterGrade > maxLetterGrade) {
-            maxLetterGrade = letterGrade;
+        String letterGrade = s.getGrade().getLetterGrade();
+        if (letterGrade.compareTo(minLetterGrade) < 0) {
+            minLetterGrade = letterGrade;
         }
     }
-    return maxLetterGrade;
+    return minLetterGrade;
 }
+
+
+    public char calculateMaxLetterGrade() {
+        if (listOfStudents.isEmpty()) {
+            throw new IllegalStateException("No students in the gradebook.");
+        }
+
+        char maxLetterGrade = listOfStudents.get(0).getGrade().getLetterGrade();
+        for (Student s : listOfStudents) {
+            char letterGrade = s.getGrade().getLetterGrade();
+            if (letterGrade > maxLetterGrade) {
+                maxLetterGrade = letterGrade;
+            }
+        }
+        return maxLetterGrade;
+    }
 
     public void printAllStudents() {
         for (Student s : listOfStudents)
@@ -87,7 +88,7 @@ public char calculateMaxLetterGrade() {
     public void findAndPrintLetterGrade(int targetPid) {
     for (Student s : listOfStudents) {
         if (s.getPid() == targetPid) {
-            char letterGrade = s.getGrade().getLetterGrade();
+            String letterGrade = s.getGrade().getLetterGrade();
             System.out.println("Letter Grade for PID " + targetPid + ": " + letterGrade);
             return;
         }
@@ -125,10 +126,9 @@ public char calculateAverageLetterGrade() {
         throw new IllegalStateException("No students in the gradebook.");
     }
 
-    double averageScore = calculateAvg(); // Calculate the average score first
+    double averageScore = calculateAvg(); 
 
-    // Define your grading scale here
-    // Example: Grading scale for letter grades
+
     if (averageScore >= 90.0) {
         return 'A';
     } else if (averageScore >= 80.0) {
@@ -147,10 +147,8 @@ public char calculateMedianLetterGrade() {
         throw new IllegalStateException("No students in the gradebook.");
     }
 
-    float medianScore = calculateMedian(); // Calculate the median score first
+    float medianScore = calculateMedian();
 
-    // Define your grading scale here
-    // Example: Grading scale for letter grades
     if (medianScore >= 90.0f) {
         return 'A';
     } else if (medianScore >= 80.0f) {

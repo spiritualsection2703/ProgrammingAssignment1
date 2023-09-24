@@ -35,12 +35,7 @@ while (true) {
                 student.setPid(pid);
                 student.setGrade(grade);
 
-                gradebook.addStudent(student); // Add the student to the gradebook
-
-                if (gradeValue < minScore) {
-                    minScore = gradeValue; // Update minScore if necessary
-                }
-
+                
                 System.out.println("Student added: " + student.getFirstName() + " " + student.getLastName());
                 System.out.println("Please add another student or quit the program.");
             } else {
@@ -48,13 +43,5 @@ while (true) {
             }
         }
     }
-
-    // After the loop ends, you can calculate and print the minimum score.
-    if (!gradebook.getListOfStudents().isEmpty()) {
-        System.out.println("Minimum Score: " + minScore);
-    } else {
-        System.out.println("No students in the gradebook.");
-    }
-}     
     }
 }
