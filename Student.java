@@ -34,7 +34,7 @@ public class Student {
         this.grade = grade;
     }
     
-    public Grade getgrade() {
+    public Grade getGrade(){
         return grade;
     }
 }

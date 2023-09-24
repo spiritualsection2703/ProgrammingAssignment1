@@ -4,14 +4,21 @@ public class Grade {
     private int score;
     private String letterGrade;
     
-    //
     public Grade (int score){
         this.score = score;
     }
     
-    //This gets the score and returns it
     public int getScore() {
         return score;
+    }
+    
+    public String getLetterGrade() {
+        return letterGrade;
+    }
+    
+    // Setter for letterGrade
+    public void setLetterGrade(String letterGrade) {
+        this.letterGrade = letterGrade;
     }
     
     //This if statement calculates thhe score then converts into a letter grade

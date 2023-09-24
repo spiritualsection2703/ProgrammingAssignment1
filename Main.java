@@ -12,37 +12,49 @@ public class Main {
     
         Student student = new Student();
         
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.equalsIgnoreCase("quit")) {
-                System.out.println("Thank you for using our program!");
-                break; 
-            } else if (input.equalsIgnoreCase("done")) {
+while (true) {
+        String input = scanner.nextLine();
+        if (input.equalsIgnoreCase("quit")) {
+            System.out.println("Thank you for using our program!");
+            break;
+        } else if (input.equalsIgnoreCase("done")) {
+            System.out.println("Enter the information for the next student or 'Quit' to finish.");
+        } else {
+            String[] parts = input.split(" ");
+            if (parts.length == 4) {
+                String firstName = parts[0];
+                String lastName = parts[1];
+                int pid = Integer.parseInt(parts[2]);
+                int gradeValue = Integer.parseInt(parts[3]);
+
+                Grade grade = new Grade(gradeValue);
+
                 
-                System.out.println("Enter the information for the next student or 'Done' to finish.");
-            } else {
-                
-                String[] parts = input.split(" ");
-                if (parts.length == 4) {
-                    String firstName = parts[0];
-                    String lastName = parts[1];
-                    int pid = Integer.parseInt(parts[2]);
-                    int gradeValue = Integer.parseInt(parts[3]);
-                    
-                    
-                    Grade grade = new Grade(gradeValue);
-                    
-                    
-                    student.setFirstName(firstName);
-                    student.setLastName(lastName);
-                    student.setPid(pid);
-                    student.setGrade(grade);
-                    System.out.println("Student added: " + student.getFirstName() + " " + student.getLastName());
-                    System.out.println("Please add another Student or quit the program.");
-                } else {
-                    System.out.println("Please use: \"firstName lastName PID grade\"");
+                student.setFirstName(firstName);
+                student.setLastName(lastName);
+                student.setPid(pid);
+                student.setGrade(grade);
+
+                gradebook.addStudent(student); // Add the student to the gradebook
+
+                if (gradeValue < minScore) {
+                    minScore = gradeValue; // Update minScore if necessary
                 }
+
+                System.out.println("Student added: " + student.getFirstName() + " " + student.getLastName());
+                System.out.println("Please add another student or quit the program.");
+            } else {
+                System.out.println("Please use: \"firstName lastName PID grade\"");
             }
-        }       
+        }
+    }
+
+    // After the loop ends, you can calculate and print the minimum score.
+    if (!gradebook.getListOfStudents().isEmpty()) {
+        System.out.println("Minimum Score: " + minScore);
+    } else {
+        System.out.println("No students in the gradebook.");
+    }
+}     
     }
 }
