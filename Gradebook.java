@@ -65,20 +65,20 @@ public class Gradebook {
 }
 
 
-    public char calculateMaxLetterGrade() {
-        if (listOfStudents.isEmpty()) {
-            throw new IllegalStateException("No students in the gradebook.");
-        }
-
-        char maxLetterGrade = listOfStudents.get(0).getGrade().getLetterGrade();
-        for (Student s : listOfStudents) {
-            char letterGrade = s.getGrade().getLetterGrade();
-            if (letterGrade > maxLetterGrade) {
-                maxLetterGrade = letterGrade;
-            }
-        }
-        return maxLetterGrade;
+public String calculateMaxLetterGrade() {
+    if (listOfStudents.isEmpty()) {
+        throw new IllegalStateException("No students in the gradebook.");
     }
+
+    String maxLetterGrade = listOfStudents.get(0).getGrade().getLetterGrade();
+    for (Student s : listOfStudents) {
+        String letterGrade = s.getGrade().getLetterGrade();
+        if (letterGrade.compareTo(maxLetterGrade) > 0) {
+            maxLetterGrade = letterGrade;
+        }
+    }
+    return maxLetterGrade;
+}
 
     public void printAllStudents() {
         for (Student s : listOfStudents)
@@ -109,7 +109,7 @@ public class Gradebook {
     System.out.println("Student with PID " + targetPid + " not found in the gradebook.");
 }
     
-    public void updateStudentGrade(int targetPid, char newGradeSymbol) {
+    public void updateStudentGrade(int targetPid, String newGradeSymbol) {
     for (Student s : listOfStudents) {
         if (s.getPid() == targetPid) {
             s.getGrade().setLetterGrade(newGradeSymbol);

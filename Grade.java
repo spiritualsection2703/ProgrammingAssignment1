@@ -4,6 +4,7 @@ public class Grade {
     private int score;
     private String letterGrade;
     
+    // Setters and getters for grade, letters, and scores
     public Grade (int score){
         this.score = score;
     }
@@ -16,12 +17,12 @@ public class Grade {
         return letterGrade;
     }
     
-    // Setter for letterGrade
+    
     public void setLetterGrade(String letterGrade) {
         this.letterGrade = letterGrade;
     }
     
-    //This if statement calculates thhe score then converts into a letter grade
+    //This if statement calculates the score then converts into a letter grade
     public static String calculateScoreToLetter(double score) {
         if (score >= 90) {
             return "A";
