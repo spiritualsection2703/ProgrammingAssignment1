@@ -6,6 +6,7 @@ public class Student {
     private int pid;
     private Grade grade;
     
+    // Setters and getters for Student's first name, last name, PID number, and Grade
     public void setFirstName(String firstName){
         this.firstName = firstName;
     }

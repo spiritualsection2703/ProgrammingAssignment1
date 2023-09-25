@@ -15,7 +15,22 @@ public class Gradebook {
         listOfStudents.add(student);
     }
     
-    // This is the main #1
+    // This method calculates the score then converts it to a letter grade
+    public static String calculateScoreToLetter(double score) {
+        if (score >= 90) {
+            return "A";
+        } else if (score >= 80) {
+            return "B";
+        } else if (score >= 70) {
+            return "C";
+        } else if (score >= 60) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+    
+    // This method calculates the minimum score
     public int calculateMinScore() {
         if (listOfStudents.isEmpty()) {
             throw new IllegalStateException("Please add students to the gradebook.");
@@ -31,7 +46,7 @@ public class Gradebook {
         return minScore;
     }
 
-    //This is the main #2
+    // This method calculates the average
     public double calculateAvg() {
         double sum = 0;
         for (Student s : listOfStudents)
@@ -39,7 +54,7 @@ public class Gradebook {
         return sum / listOfStudents.size();
     }
 
-    //This is the main #3
+    // This method calculates median
     public float calculateMedian() {
         int i = 0, n = listOfStudents.size();
         int[] scores = new int[n];
@@ -52,7 +67,7 @@ public class Gradebook {
             return scores[n / 2];
     }
 
-    // This is the main #4 NEEDS TO BE FIXED
+    // This method calculates the minimum letter grade
     public String calculateMinLetterGrade() {
     if (listOfStudents.isEmpty()) {
         throw new IllegalStateException("No students in the gradebook.");
@@ -61,62 +76,88 @@ public class Gradebook {
     String minLetterGrade = null;
 
     for (Student s : listOfStudents) {
-        String letterGrade = s.getGrade().getLetterGrade();
+        int score = s.getGrade().getScore();
+
         
-        // Ignore students with null letter grades
+        String letterGrade = calculateScoreToLetter(score);
+
+       
         if (letterGrade == null) {
             continue;
         }
 
-        // If minLetterGrade is null or letterGrade is smaller, update minLetterGrade
-        if (minLetterGrade == null || letterGrade.compareTo(minLetterGrade) < 0) {
+        if (minLetterGrade == null || letterGrade.compareTo(minLetterGrade) > 0) {
             minLetterGrade = letterGrade;
         }
     }
 
     if (minLetterGrade == null) {
-        throw new IllegalStateException("No valid minimum letter grade found.");
+        throw new IllegalStateException("No minimum letter grade could be found.");
     }
 
     return minLetterGrade;
 }
 
-    //This is the main #5 NEEDS TO BE FIXED
+    //This method calculates the maximum letter grade
     public String calculateMaxLetterGrade() {
     if (listOfStudents.isEmpty()) {
         throw new IllegalStateException("No students in the gradebook.");
     }
 
-    String maxLetterGrade = listOfStudents.get(0).getGrade().getLetterGrade();
+    String maxLetterGrade = null;
+
     for (Student s : listOfStudents) {
-        String letterGrade = s.getGrade().getLetterGrade();
-        if (letterGrade.compareTo(maxLetterGrade) > 0) {
+        int score = s.getGrade().getScore();
+
+        String letterGrade = calculateScoreToLetter(score);
+
+        if (letterGrade == null) {
+            continue;
+        }
+
+        if (maxLetterGrade == null || letterGrade.compareTo(maxLetterGrade) < 0) {
             maxLetterGrade = letterGrade;
         }
     }
-        return maxLetterGrade;
+
+    if (maxLetterGrade == null) {
+        throw new IllegalStateException("No maximum letter grade could found.");
     }
 
-    //This is the main #6
+    return maxLetterGrade;
+}
+
+    //This method prints out all the student's information
     public void printAllStudents() {
         for (Student s : listOfStudents)
             System.out.printf("%s\t%s\t%d\t%d\n", s.getFirstName(), s.getLastName(), s.getPid(), s.getGrade().getScore());
     }
     
-    //this is the main #7 Output displays "null"
+    //This method finds the student's PID and then prints their letter
     public void findAndPrintLetterGrade(int targetPid) {
     for (Student s : listOfStudents) {
         if (s.getPid() == targetPid) {
-            String letterGrade = s.getGrade().getLetterGrade();
-            System.out.println("Letter Grade for PID " + targetPid + ": " + letterGrade);
+            Grade grade = s.getGrade();
+            if (grade != null) {
+                String letterGrade = grade.getLetterGrade();
+                if (letterGrade != null) {
+                    System.out.println("Letter Grade for PID " + targetPid + ": " + letterGrade);
+                } else {
+                    double score = grade.getScore();
+                    String calculatedLetterGrade = calculateScoreToLetter(score);
+                    System.out.println("Calculated Letter Grade for PID " + targetPid + ": " + calculatedLetterGrade);
+                }
+            } else {
+                System.out.println("Grade information for PID " + targetPid + " is not available.");
+            }
             return;
         }
     }
+
+    System.out.println("Student with PID " + targetPid + " not found in the gradebook.");
+}
     
-        System.out.println("Student with PID " + targetPid + " not found in the gradebook.");
-    }
-    
-    //This is the main #8
+    //This method uses the PID of the student to print out their name and last name
     public void findAndPrintFullName(int targetPid) {
     for (Student s : listOfStudents) {
         if (s.getPid() == targetPid) {
@@ -129,12 +170,12 @@ public class Gradebook {
     System.out.println("Student with PID " + targetPid + " not found in the gradebook.");
     }
     
-    //This is the main #9 newGradeSymbol change it to string not char?
+    //This method uses the PID of the student to update their grade
     public void updateStudentGrade(int targetPid, String newGradeSymbol) {
     for (Student s : listOfStudents) {
         if (s.getPid() == targetPid) {
             s.getGrade().setLetterGrade(newGradeSymbol);
-            System.out.println("Updated grade for PID " + targetPid + " to " + newGradeSymbol);
+            System.out.println("Update grade by using PID " + targetPid + " to " + newGradeSymbol);
             return;
         }
     }
@@ -142,10 +183,10 @@ public class Gradebook {
     System.out.println("Student with PID " + targetPid + " not found in the gradebook.");
     }
 
-    //This is the main #10 This works
+    //This method calculates the average letter grade
     public char calculateAverageLetterGrade() {
         if (listOfStudents.isEmpty()) {
-            throw new IllegalStateException("No students in the gradebook.");
+            throw new IllegalStateException("There are no students in the gradebook.");
         }
 
         double averageScore = calculateAvg(); 
@@ -164,7 +205,7 @@ public class Gradebook {
         }
     }    
 
-     //This is the main #11
+     //This method calculates the median letter grade
     public char calculateMedianLetterGrade() {
         if (listOfStudents.isEmpty()) {
             throw new IllegalStateException("No students in the gradebook.");
@@ -185,20 +226,24 @@ public class Gradebook {
         }
     }
 
-    //This is the main #12
+    //this method prints out all students information in a table with their score
     public void printStudentTable() {
-        System.out.println("firstname\tlastname\tPID\tscore");
+        System.out.println("first Name\tLast Name\tPID\tScore");
         for (Student s : listOfStudents) {
             System.out.printf("%s\t%s\t%d\t%d\n", s.getFirstName(), s.getLastName(), s.getPid(), s.getGrade().getScore());
         }
     }
 
-    //This is the main #13 showing TWICE OF EVERYTHING AND shows null in letter grades
+    //This method prints out all students information in a table with the their letter grade
     public void printStudentTableWithLetterGrades() {
-        System.out.println("firstname\tlastname\tPID\tletter-grades");
-        for (Student s : listOfStudents) {
-            System.out.printf("%s\t%s\t%d\t%c\n", s.getFirstName(), s.getLastName(), s.getPid(), s.getGrade().getLetterGrade());
-        }
+    System.out.println("First Name\tLast Name\tPID\tLetter Grade");
+    for (Student s : listOfStudents) {
+        int score = s.getGrade().getScore();
+        String letterGrade = calculateScoreToLetter(score);
+
+        System.out.printf("%s\t%s\t%d\t%s\n", s.getFirstName(), s.getLastName(), s.getPid(), letterGrade);
     }
+}
+
 
 }
